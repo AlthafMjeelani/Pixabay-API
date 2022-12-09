@@ -1,17 +1,16 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:kochitask/core/api_baseurl.dart';
+import 'package:kochitask/core/api_endpoint.dart';
 import 'package:kochitask/screens/model/image_model.dart';
 import 'package:kochitask/utils/exception_handling.dart';
 
 class ImageGetService {
   static Future<ImageModel?> imageGetService(String? query, currentPage) async {
     final dio = Dio();
-
     try {
-      log('itemNumber item:  ${currentPage.toString()}');
-
       String url = "https://pixabay.com/api/?"
-          "key=16582589-68a2e0e5d7a78080a8fa51cbe"
+          "key=31943447-37837073aeee2809bd0484d8e"
           "&q=$query"
           "&page=$currentPage"
           "&per_page=6";

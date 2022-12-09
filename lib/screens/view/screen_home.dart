@@ -15,11 +15,15 @@ class ScreenHome extends StatelessWidget {
     final imageConttroller =
         Provider.of<ImageController>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // imageConttroller.getImages('sun', );
       imageConttroller.searchController.clear();
     });
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+         title: Text('${imageConttroller.searchController.text}, Page ${imageConttroller.currentPage}/${imageConttroller.totelPages}',
+            style: TextStyle(color:Colors.white),
+          ),
+          centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -3,15 +3,36 @@ import 'package:kochitask/screens/controller/image_provider.dart';
 import 'package:kochitask/widgets/no_data_widget.dart';
 import 'package:provider/provider.dart';
 
-class ProductViewWidget extends StatelessWidget {
+class ProductViewWidget extends StatefulWidget {
   const ProductViewWidget({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<ProductViewWidget> createState() => _ProductViewWidgetState();
+}
+late ImageController imageController;
+
+class _ProductViewWidgetState extends State<ProductViewWidget> {
+  @override
+  void initState() {
+    imageController = Provider.of<ImageController>(context, listen: false);
+    imageController.scrollController.addListener(() {
+      if (imageController.scrollController.position.pixels ==
+          imageController.scrollController.position
+              // ignore: curly_braces_in_flow_control_structures
+              .maxScrollExtent) if (imageController.currentPage <=
+          imageController.totelPages) {
+        ++imageController.currentPage;
+        imageController.getImages(imageController.searchController.text);
+      }
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final imageController =
         Provider.of<ImageController>(context, listen: false);
-    //imageController.handler(imageController.searchController.text);
     return Consumer(
       builder: (context, ImageController value, child) {
         return value.isLoading
@@ -22,28 +43,16 @@ class ProductViewWidget extends StatelessWidget {
                 ),
               )
             : imageController.imageModel == null
-                ? const SizedBox()
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
                 : imageController.imageModel!.imageDetails!.isEmpty
                     ? const CustomNotFoundWidget(
                         title: "Product is Empty", subtitle: '')
-                    :
-                    // NotificationListener<ScrollNotification>(
-                    //     onNotification: (notification) {
-                    //       if (notification.metrics.pixels ==
-                    //           notification.metrics.maxScrollExtent) {
-                    //         value.handler(
-                    //             value.searchController.text, value.isLoading);
-                    //       }
-                    //       return false;
-                    //     },
-                    //     child:
-
-                    GridView.builder(
+                    : GridView.builder(
+                        itemCount:
+                            (value.imageModel == null ? 0 : value.hits.length),
                         controller: value.scrollController,
-                        itemCount: value.imageModel!.imageDetails!.length,
-                        //value.currentPage,
-                        //shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
@@ -51,8 +60,7 @@ class ProductViewWidget extends StatelessWidget {
                                 crossAxisSpacing: 10,
                                 childAspectRatio: 1 / 1.2),
                         itemBuilder: (BuildContext context, int index) {
-                          final image =
-                              imageController.imageModel!.imageDetails![index];
+                          final image = value.hits[index];
                           return GestureDetector(
                             onTap: () {},
                             child: Container(
@@ -68,7 +76,7 @@ class ProductViewWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      image.webformatUrl.toString(),
+                                      image.toString(),
                                     ),
                                     fit: BoxFit.fill,
                                   ),
