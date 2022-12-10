@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:kochitask/screens/model/image_model.dart';
 import 'package:kochitask/screens/service/image_get_service.dart';
+import 'package:kochitask/screens/view/screen_image_view.dart';
 
 class ImageController with ChangeNotifier {
   ImageModel? imageModel;
@@ -25,18 +26,29 @@ class ImageController with ChangeNotifier {
     await ImageGetService.imageGetService(query, currentPage).then((value) {
       log(currentPage.toString());
       imageModel = value;
-     List<dynamic>   images = value!.imageDetails!.map((e) => e.webformatUrl).toList();
+      notifyListeners();
+      List<dynamic> images =
+          value!.imageDetails!.map((e) => e.webformatUrl).toList();
       hits.addAll(images);
 
       if (imageModel!.totalImages! % 10 == 0) {
         totelPages = imageModel!.totalImages! / 10;
+        notifyListeners();
       } else {
         totelPages = 1 + (imageModel!.totalImages! / 10);
+        notifyListeners();
       }
+
       isLoading = false;
       notifyListeners();
     });
     isLoading = false;
     notifyListeners();
+  }
+
+  void gotoImageView(context,image) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) =>  ScreenImageView(image: image,),
+    ));
   }
 }

@@ -11,6 +11,7 @@ class ProductViewWidget extends StatefulWidget {
   @override
   State<ProductViewWidget> createState() => _ProductViewWidgetState();
 }
+
 late ImageController imageController;
 
 class _ProductViewWidgetState extends State<ProductViewWidget> {
@@ -19,7 +20,9 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
     imageController = Provider.of<ImageController>(context, listen: false);
     imageController.scrollController.addListener(() {
       if (imageController.scrollController.position.pixels ==
-          imageController.scrollController.position
+          imageController
+              .scrollController
+              .position
               // ignore: curly_braces_in_flow_control_structures
               .maxScrollExtent) if (imageController.currentPage <=
           imageController.totelPages) {
@@ -29,6 +32,12 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
     });
     super.initState();
   }
+  @override
+  void dispose() {
+    imageController.searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final imageController =
@@ -44,7 +53,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
               )
             : imageController.imageModel == null
                 ? const Center(
-                    child: CircularProgressIndicator(),
+                    child: SizedBox(),
                   )
                 : imageController.imageModel!.imageDetails!.isEmpty
                     ? const CustomNotFoundWidget(
@@ -62,7 +71,9 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                         itemBuilder: (BuildContext context, int index) {
                           final image = value.hits[index];
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              value.gotoImageView(context,image);
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(),

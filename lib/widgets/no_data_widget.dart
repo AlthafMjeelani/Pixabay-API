@@ -22,25 +22,12 @@ class CustomNotFoundWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 250,
-              child: Lottie.asset(
-                'assets/lottie/no data.json',
-                fit: BoxFit.fill,
-              ),
-            ),
-            AppSpacing.ksizedBox5,
             Text(
               title,
               style:TextStyle(fontSize: 20) ,
               textAlign: TextAlign.center,
             ),
-            AppSpacing.ksizedBox10,
-            Text(
-              subtitle,
-              //style: AppTextStyle.subtitle2,
-              textAlign: TextAlign.center,
-            )
+          
           ],
         ),
       ),

@@ -15,31 +15,42 @@ class ScreenHome extends StatelessWidget {
     final imageConttroller =
         Provider.of<ImageController>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      imageConttroller.searchController.clear();
+      //  imageConttroller.searchController.clear();
     });
     return Scaffold(
       appBar: AppBar(
-         title: Text('${imageConttroller.searchController.text}, Page ${imageConttroller.currentPage}/${imageConttroller.totelPages}',
-            style: TextStyle(color:Colors.white),
-          ),
-          centerTitle: true,
+        title: Consumer(
+          builder: (context, ImageController value, child) {
+            return Text(
+              ' Page ${value.currentPage}/${value.totelPages}',
+              style: const TextStyle(color: Colors.white),
+            );
+          },
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             AppSpacing.ksizedBox10,
-            TextfeildWidget(
-              text: "Enter the Image Name",
-              obscureText: false,
-              controller: imageConttroller.searchController,
-              suffixIcon: IconButton(
-                onPressed: () {
-                  imageConttroller
-                      .getImages(imageConttroller.searchController.text);
-                },
-                icon: const Icon(Icons.search),
-              ),
+            Consumer(
+              builder: (context, ImageController value, child) {
+                return TextfeildWidget(
+                  text: "Enter the Image Name",
+                  obscureText: false,
+                  controller: imageConttroller.searchController,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      value.hits.clear();
+                      value.currentPage=1;
+                      
+                      value.getImages(imageConttroller.searchController.text);
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+                );
+              },
             ),
             AppSpacing.ksizedBox20,
             const Expanded(
