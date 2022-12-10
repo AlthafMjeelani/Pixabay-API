@@ -40,6 +40,7 @@ class ScreenHome extends StatelessWidget {
                   onChanged: (text) {
                     value.hits.clear();
                     value.currentPage = 1;
+                    value.isLoading=false;
                     value.getImages(text);
                     return null;
                   },

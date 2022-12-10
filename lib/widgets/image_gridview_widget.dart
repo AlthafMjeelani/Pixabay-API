@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kochitask/screens/controller/image_provider.dart';
 import 'package:kochitask/widgets/no_data_widget.dart';
@@ -20,14 +23,12 @@ class _ImageListWidgetState extends State<ImageListWidget> {
     imageController = Provider.of<ImageController>(context, listen: false);
     imageController.scrollController.addListener(() {
       if (imageController.scrollController.position.pixels ==
-          imageController
-              .scrollController
-              .position
-              // ignore: curly_braces_in_flow_control_structures
-              .maxScrollExtent) if (imageController.currentPage <=
-          imageController.totelPages) {
-        ++imageController.currentPage;
-        imageController.getImages(imageController.searchController.text);
+          imageController.scrollController.position.maxScrollExtent) {
+        if (imageController.currentPage <= imageController.totelPages) {
+          ++imageController.currentPage;
+          imageController.getImages(imageController.searchController.text);
+          imageController.isLoading = false;
+        }
       }
     });
     super.initState();
@@ -71,6 +72,15 @@ class _ImageListWidgetState extends State<ImageListWidget> {
                                 childAspectRatio: 1 / 1.2),
                         itemBuilder: (BuildContext context, int index) {
                           final image = value.hits[index];
+                          if (value.isLoading == false) {
+                            if (index + 1 == value.hits.length) {
+                              log(index.toString());
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }
+
                           return GestureDetector(
                             onTap: () {
                               value.gotoImageView(context, image);

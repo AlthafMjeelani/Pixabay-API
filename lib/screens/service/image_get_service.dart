@@ -11,7 +11,7 @@ class ImageGetService {
           "key=31943447-37837073aeee2809bd0484d8e"
           "&q=$query"
           "&page=$currentPage"
-          "&per_page=6";
+          "&per_page=7";
       /*  call api key   */
       final Response response = await dio.get(url);
       log('api called success');
