@@ -51,7 +51,7 @@ class ScreenHome extends StatelessWidget {
             ),
             AppSpacing.ksizedBox20,
             const Expanded(
-              child: ProductViewWidget(),
+              child: ImageListWidget(),
             )
           ],
         ),

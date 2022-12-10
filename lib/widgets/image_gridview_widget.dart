@@ -3,18 +3,18 @@ import 'package:kochitask/screens/controller/image_provider.dart';
 import 'package:kochitask/widgets/no_data_widget.dart';
 import 'package:provider/provider.dart';
 
-class ProductViewWidget extends StatefulWidget {
-  const ProductViewWidget({
+class ImageListWidget extends StatefulWidget {
+  const ImageListWidget({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProductViewWidget> createState() => _ProductViewWidgetState();
+  State<ImageListWidget> createState() => _ImageListWidgetState();
 }
 
 late ImageController imageController;
 
-class _ProductViewWidgetState extends State<ProductViewWidget> {
+class _ImageListWidgetState extends State<ImageListWidget> {
   @override
   void initState() {
     imageController = Provider.of<ImageController>(context, listen: false);
