@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kochitask/screens/controller/image_provider.dart';
-import 'package:kochitask/screens/view/screen_home.dart';
-import 'package:kochitask/screens/view/screen_image_view.dart';
+import 'package:kochitask/screens/view/screen_spash.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ScreenHome(),
+        home: const Screenspash(),
       ),
     );
   }

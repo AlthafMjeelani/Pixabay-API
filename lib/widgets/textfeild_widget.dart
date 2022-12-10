@@ -1,45 +1,27 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class TextfeildWidget extends StatelessWidget {
   const TextfeildWidget({
     Key? key,
-    this.validator,
+    this.onChanged,
     required this.text,
-    this.icon,
     this.controller,
-    this.keyboardType,
     this.suffixIcon,
-    this.autovalidateMode,
-    required this.obscureText,
   }) : super(key: key);
 
-  final String? Function(String?)? validator;
+  final String? Function(String?)? onChanged;
   final String text;
-  final IconData? icon;
   final TextEditingController? controller;
-  final TextInputType? keyboardType;
-  final Widget? suffixIcon;
-  final bool obscureText;
-  final AutovalidateMode? autovalidateMode;
+  final Icon? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      //enableInteractiveSelection: false,
-      toolbarOptions: const ToolbarOptions(
-        paste: false,
-        
-      ),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      keyboardType: keyboardType,
-      validator: validator,
+    return CupertinoSearchTextField(
       controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        label: Text(text),
-        suffixIcon: suffixIcon,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-      ),
+      placeholder: text,
+      suffixIcon: suffixIcon!,
+      autofocus: true,
+      onChanged: onChanged,
     );
   }
 }

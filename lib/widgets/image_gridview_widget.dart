@@ -32,6 +32,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
     });
     super.initState();
   }
+
   @override
   void dispose() {
     imageController.searchController.dispose();
@@ -60,7 +61,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                         title: "Product is Empty", subtitle: '')
                     : GridView.builder(
                         itemCount:
-                            (value.imageModel == null ? 0 : value.hits.length),
+                            value.imageModel == null ? 0 : value.hits.length,
                         controller: value.scrollController,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -72,7 +73,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                           final image = value.hits[index];
                           return GestureDetector(
                             onTap: () {
-                              value.gotoImageView(context,image);
+                              value.gotoImageView(context, image);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -80,7 +81,6 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Container(
-                                // width: double.infinity,
                                 height: 120,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -96,9 +96,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                             ),
                           );
                         },
-                        //),
                       );
-        //);
       },
     );
   }

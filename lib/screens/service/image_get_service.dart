@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:kochitask/core/api_baseurl.dart';
-import 'package:kochitask/core/api_endpoint.dart';
 import 'package:kochitask/screens/model/image_model.dart';
 import 'package:kochitask/utils/exception_handling.dart';
 

@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:kochitask/helper/app_spacing.dart';
-import 'package:lottie/lottie.dart';
 
 class CustomNotFoundWidget extends StatelessWidget {
   const CustomNotFoundWidget({
@@ -24,7 +21,7 @@ class CustomNotFoundWidget extends StatelessWidget {
           children: [
             Text(
               title,
-              style:TextStyle(fontSize: 20) ,
+              style:const TextStyle(fontSize: 20) ,
               textAlign: TextAlign.center,
             ),
           
